@@ -1,0 +1,257 @@
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+var $ = jQuery,
+    clickLock = false,
+    currentIndexes = [],
+    movingAnimations = [],
+    bottomOffset = 200,
+    hash = true
+
+
+// Align the circle to the center of the icon
+
+function getCenter(el){
+    return el.position().left + el.width()/2
+}
+
+
+// Move the circle
+
+function moveCircle(parent, el){
+    var centerDiff = getCenter(el) - getCenter(parent.find('.elementor-widget-icon-box').eq(0))
+        leftOffset = parent.find('.elementor-widget-icon-box').eq(0).offset().left - parent.offset().left
+
+    parent.find('.elementor-widget-divider').css('transform', 'translateX(' + (centerDiff+leftOffset) + 'px)')
+}
+
+
+// Make the icon highlighted
+
+function setActive(menu, index, i){
+    menu.addClass('bubbling')
+    movingAnimations[i] = true
+    setTimeout(function(){
+        if(movingAnimations[i]){ menu.addClass('bubble') }
+    },50)
+    menu.find('.elementor-widget-icon-box').removeClass('active')
+    menu.find('.elementor-widget-icon-box').eq(index).addClass('active')
+    moveCircle(menu, menu.find('.elementor-widget-icon-box').eq(index))
+}
+
+
+// Remove highlighted if needed
+
+function removeActive(menu, i){
+    movingAnimations[i] = false
+    menu.removeClass('bubbling bubble')
+    menu.find('.elementor-widget-icon-box').removeClass('active')
+}
+
+$(document).ready(function(){
+    
+$('.icon-menu').each(function(i){
+    
+var $this = $(this)
+    
+currentIndexes.push(-1)
+movingAnimations.push(false)
+
+// Hover Effect
+
+$this.find('.elementor-widget-icon-box').on('mousemove mouseenter', function(){
+    setActive($this, $(this).index(), i)
+})
+
+
+// Back to current item on mouse leave
+
+$this.on('mouseleave', function(){
+    if(currentIndexes[i] == -1){
+        removeActive($this, i)
+    }else{
+        setActive($this, currentIndexes[i])
+    }
+})
+
+
+// Click Effect
+
+$this.find('.elementor-widget-icon-box').on('click', function(e){
+    
+    if( !hash ){
+        var link = $(this).find('a').attr('href')
+        if( link == '' || link[0] == '#' ){ return }
+    }
+
+    setActive($this, $(this).index(), i)
+    currentIndexes[i] = $(this).index()
+    clickLock = true
+    setTimeout(function(){
+        clickLock = false
+    },1500)
+})
+
+})
+})
+
+function removeSlash(str){
+    return str.replace(/^\/+|\/+$/g, '')
+}
+
+function getPath(url){
+    return removeSlash((new URL(url, location.protocol+'//'+location.hostname)).pathname)
+}
+
+$(window).on('load', function(){
+
+$('.icon-menu').each(function(i){
+    
+var $this = $(this)
+
+$this.find('.elementor-widget-icon-box').each(function(index){
+    
+    
+    // Add # in case of empty link
+    
+    var span1 = $(this).find('span.elementor-icon'),
+    span2 = $(this).find('.elementor-icon-box-title span')
+            
+    
+    if( span1.length ){
+        span1.replaceWith($('<a class="elementor-icon elementor-animation-" href="#">' + span1.html() + '</a>'))
+    }
+    if( span2.length ){
+        span2.replaceWith($('<a href="#">' + span2.html() + '</a>'))
+    }
+    
+    
+    // Hightlight icon in case of page URL
+    
+    var link = $(this).find('a').eq(0).attr('href')
+    if(link){
+        if(link[0] != '#'){
+            hash = false
+            if(getPath(link) == removeSlash(location.pathname)){
+                setActive($this, index, i)
+                currentIndexes[i] = index
+            }
+        }
+    }
+})
+
+
+// Avoid initial animation
+
+setTimeout(function(){
+    $this.addClass('transition')  
+},400)
+
+})
+})
+
+
+// Title overflow fixing for v2
+
+$(window).on('load resize', function(){
+
+$('.icon-menu').each(function(i){
+    
+var $this = $(this)
+
+$this.find('.elementor-widget-icon-box').each(function(index){
+    
+    if($this.hasClass('v2')){
+        
+        var offset = 20,
+        title = $(this).find('.elementor-icon-box-title'),
+        titleLeft = title.offset().left,
+        menuLeft = $this.offset().left,
+        titleRight = titleLeft + title.outerWidth(),
+        menuRight = menuLeft + $this.outerWidth(),
+        translateLeft = titleLeft - menuLeft,
+        translateRight = menuRight - titleRight
+        
+        if($(window).width() < 768){
+            offset = 4
+        }
+        
+        // Right fix
+        
+        if(translateRight < offset){
+            title.css('transform', 'translateX(' + (translateRight-offset) + 'px)')
+        }
+        
+        // Left fix
+        
+        if(translateLeft < offset){
+            title.css('transform', 'translateX(' + (offset - translateLeft) + 'px)')
+        }
+    }
+})
+
+})
+})
+
+var delay = 100
+
+$(window).on('load scroll resize', function(e){
+
+setTimeout(function(){
+
+var topIds = [],
+    selector = $('[data-elementor-type="wp-page"] > *:not(.icon-menu)')
+
+selector.each(function(){
+    if($(window).scrollTop() + $(window).height() - 350 > $(this).offset().top){
+        topIds.push($(this).attr('id'))
+    }
+})
+
+topIds = topIds.filter(element => element !== undefined)
+
+$('.icon-menu').each(function(i){
+    
+    var $this = $(this),
+        menuIndex
+        
+    // Hide menu near window bottom
+    
+    if( $('body').height() > $(window).height()+bottomOffset+100 ){
+        if($('body').height() < $(window).scrollTop()+$(window).height()+bottomOffset){
+            $this.addClass('hidden')
+        }else{
+            $this.removeClass('hidden')
+        }
+    }
+    
+    
+    // Auto hightlight icon on scroll, load and resize
+        
+    if( !hash || clickLock ) {
+        if( currentIndexes[i] != -1 && e.type == 'resize'){
+            moveCircle($this, $this.find('.elementor-widget-icon-box').eq(currentIndexes[i]))
+        }
+        return
+    }
+    
+    topIds.forEach(function(id, index){
+        if( menuIndex!=undefined && menuIndex > -1 ) return
+        var menuId = topIds[topIds.length - 1 - index]
+        menuIndex = $this.find('[href="#'+ menuId +'"]').closest('.elementor-widget-icon-box').index()
+        currentIndexes[i] = menuIndex
+    })
+    
+    if( menuIndex==undefined || menuIndex == -1 ){
+        currentIndexes[i] = -1
+        removeActive($(this), i)
+    }else{
+        setActive($(this), menuIndex, i)
+    }
+    
+})
+delay = 0
+},delay)
+})
+
+</script>

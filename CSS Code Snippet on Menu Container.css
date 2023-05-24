@@ -1,0 +1,301 @@
+selector{
+    --background-color: #FFFFFF;
+    --menu-active-color: #9B1FE8;
+}
+selector{
+    width: max-content;
+    transform: translateX(-50%);
+    transition: none;
+    background: var(--background-color);
+}
+selector:before{
+    content: "" !important;
+    display: none !important;
+}
+selector.transition{
+    transition: all 0.3s ease-in-out;
+}
+selector.hidden{
+    opacity: 0;
+    pointer-events: none;
+}
+selector .elementor-widget-icon-box.stroke .elementor-icon{
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 0.08em;
+  -webkit-text-stroke-color: currentColor;
+}
+selector .elementor-widget-icon-box .elementor-icon-box-icon a,
+selector .elementor-widget-icon-box .elementor-icon-box-icon span{
+    padding-bottom: 9px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: -15px 0 0;
+    position: relative;
+    z-index: 1;
+    transform: translateY(35px);
+    transition: none;
+}
+selector.transition .elementor-widget-icon-box .elementor-icon-box-icon a,
+selector.transition .elementor-widget-icon-box .elementor-icon-box-icon span{
+    transition: all 0.3s ease-in-out;
+}
+selector .elementor-widget-icon-box.active .elementor-icon-box-icon a,
+selector .elementor-widget-icon-box.active .elementor-icon-box-icon span{
+    transform: translateY(0);
+}
+selector .elementor-widget-icon-box .elementor-icon-box-icon i,
+selector .elementor-widget-icon-box .elementor-icon-box-icon svg{
+    transition: none;
+}
+selector.transition .elementor-widget-icon-box .elementor-icon-box-icon i,
+selector.transition .elementor-widget-icon-box .elementor-icon-box-icon svg{
+    transition: all 0.3s ease-in-out;
+}
+selector .elementor-widget-icon-box.active .elementor-icon-box-icon i{
+    color: var(--menu-active-color);
+}
+selector .elementor-widget-icon-box.active .elementor-icon-box-icon svg{
+    fill: var(--menu-active-color);
+}
+selector .elementor-icon-box-content{
+    width: 125%;
+    transform: translate(-50%,8px);
+    position: relative;
+    left: 50%;
+    opacity: 0; 
+    z-index: -1; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 34px;
+    pointer-events: none;
+}
+selector.transition .elementor-icon-box-content{
+    transition: all 0.3s ease-in-out;
+}
+selector .elementor-widget-icon-box.active .elementor-icon-box-content{
+    opacity: 1;
+    z-index: 2;
+    transform: translate(-50%,0px);
+    pointer-events: initial;
+}
+selector .elementor-icon-box-title a,
+selector .elementor-icon-box-title span{
+    background: var(--menu-active-color);
+    padding: 5px 8px;
+    border-radius: 10px;
+    display: table;
+}
+selector a,
+selector a:active,
+selector a:focus{
+    outline: none;
+}
+selector:not(.v2) .elementor-icon-box-title{
+    transform: none !important;
+}
+selector .elementor-widget-html{
+    display: none;
+}
+@media (max-width: 767px){
+selector{
+    width: calc(100% + 2px);
+    justify-content: center;
+}
+}
+
+
+
+/* Code for version 2 */
+selector.v2 .elementor-icon-box-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+selector.v2 .elementor-icon-box-content{
+    order: -1;
+}
+selector.v2 .elementor-icon-box-icon a{
+    padding: 0;
+    margin: 0;
+}
+selector.v2 .elementor-widget-divider{
+    display: none;
+}
+selector.v2 .elementor-widget-icon-box .elementor-icon-box-icon a,
+selector.v2 .elementor-widget-icon-box .elementor-icon-box-icon span{
+    padding: 30px 0 5px;
+    margin: -44px 0 0;
+    transform: translateY(0);
+}
+selector.v2 .elementor-widget-icon-box.active .elementor-icon-box-content {
+    transform: translate(-50%,-20px);
+}
+selector.v2 .elementor-icon-box-title{
+    border: 5px solid var(--background-color);
+    border-radius: 17px;
+    position: relative;
+    box-shadow: 0 -15px 30px 0 rgba(0, 0, 0, 0.1);
+}
+selector.v2 .elementor-icon-box-title:before,
+selector.v2 .elementor-icon-box-title:after{
+    content: "";
+    position: absolute;
+    bottom: 9px;
+    width: 13px;
+    height: 13px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: -1;
+}
+selector.v2 .elementor-icon-box-title:before{
+    left: -18px;
+    box-shadow: 7px 7px var(--background-color);
+}
+selector.v2 .elementor-icon-box-title:after{
+    right: -18px;
+    box-shadow: -7px 7px var(--background-color);
+}
+selector.v2 .elementor-icon-box-content {
+    align-items: flex-end;
+    width: 200px;
+}
+selector.v2 .elementor-icon-box-wrapper{
+    position: relative;
+}
+selector.v2 .elementor-icon-box-wrapper:before{
+    content: "";
+    position: absolute;
+    top: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    z-index: 3;
+    left: 50%;
+    background: var(--menu-active-color);
+    transform: translate(-50%,35px);
+    pointer-events: none;
+    opacity: 0;
+    transition: none;
+}
+selector.v2 .elementor-widget-icon-box.active .elementor-icon-box-wrapper:before{
+    opacity: 1;
+    transform: translate(-50%,0);
+}
+selector.transition.v2 .elementor-icon-box-wrapper:before{
+    transition: all 0.3s ease-in-out;
+}
+selector.v2 .elementor-icon-box-icon{
+    position: relative;
+}
+selector.v2 .elementor-icon-box-icon:before,
+selector.v2 .elementor-icon-box-icon:after{
+    content: "";
+    position: absolute;
+    top: -27px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    z-index: 3;
+    background: transparent;
+    transform: translate(-50%,35px);
+    pointer-events: none;
+    opacity: 0;
+    transition: none;
+}
+selector.v2 .elementor-icon-box-icon:before{
+    box-shadow: 2px -2px var(--menu-active-color);
+    left: calc(50% - 7px);
+}
+selector.v2 .elementor-icon-box-icon:after{
+    box-shadow: -2px -2px var(--menu-active-color);
+    left: calc(50% + 7px);
+}
+
+selector.v2 .elementor-widget-icon-box.active .elementor-icon-box-icon:before,
+selector.v2 .elementor-widget-icon-box.active .elementor-icon-box-icon:after{
+    opacity: 1;
+    transform: translate(-50%,0);
+}
+selector.transition.v2 .elementor-icon-box-icon:before,
+selector.transition.v2 .elementor-icon-box-icon:after{
+    transition: all 0.3s ease-in-out;
+}
+
+@media (max-width: 767px){
+selector.v2{
+    border-radius: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+}
+
+
+/* Code for version 3 */
+selector.v3{
+    --default-text-color: #000;
+    --active-icon-color: #fff;
+}
+selector.v3{
+    padding-bottom: 3px;
+}
+selector.v3 .elementor-icon-box-content{
+    opacity: 1;
+    z-index: 1;
+}
+selector.v3 .elementor-icon-box-title a,
+selector.v3 .elementor-icon-box-title span{
+    background: none;
+    color: var(--default-text-color);
+}
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-title a,
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-title span{
+    color: var(--menu-active-color);
+}
+selector.v3 .elementor-widget-icon-box .elementor-icon-box-icon a,
+selector.v3 .elementor-widget-icon-box .elementor-icon-box-icon span{
+    padding-bottom: 32px;
+    margin-top: -19px;
+}
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-icon a,
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-icon span{
+    transform: translateY(16px);
+}
+selector.v3 .elementor-icon-box-content{
+    transform: translate(-50%,0px);
+}
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-content{
+    transform: translate(-50%,-3px);
+}
+selector.v3 .elementor-widget-divider .elementor-widget-container:before{
+    content: '';
+    position: absolute;
+    background: var(--menu-active-color);
+    border-radius: 100%;
+    top: 5px;
+    left: 5px;
+    height: calc(100% - 5px*2);
+    width: calc(100% - 5px*2);
+}
+selector.v3 .elementor-widget-divider{
+    top: -24px;
+}
+selector.v3 .elementor-widget-divider:before {
+    top: -6px;
+    left: -24px;
+}
+selector.v3 .elementor-widget-divider:after{
+    z-index: -1;
+    top: -6px;
+    right: -24px;
+}
+selector.v3 .elementor-widget-icon-box.active .elementor-icon-box-icon i{
+    color: var(--active-icon-color);
+}
+@media (max-width: 767px){
+selector.v3{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+}

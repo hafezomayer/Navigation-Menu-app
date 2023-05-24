@@ -1,0 +1,42 @@
+.icon-menu .elementor-widget-divider{
+    transition: none;
+}
+.icon-menu.transition .elementor-widget-divider{
+    transition: margin-top 0.3s ease-in-out, opacity 0.1s ease-in-out;
+}
+.icon-menu .elementor-widget-divider{
+    opacity: 0;
+    margin-top: 20px;
+}
+.icon-menu.bubbling .elementor-widget-divider{
+    opacity: 1;
+    margin-top: 0px;
+}
+.icon-menu.bubble .elementor-widget-divider{
+    transition: all 0.3s ease-in-out, opacity 0.1s ease-in-out;
+}
+selector .elementor-widget-container{
+    background: var(--background-color);
+}
+selector:before{
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: -29px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: 15px 18px var(--background-color);
+}
+selector:after{
+    content: "";
+    position: absolute;
+    top: 4px;
+    right: -29px;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+    border-radius: 50%;
+    box-shadow: -15px 18px var(--background-color);
+}
